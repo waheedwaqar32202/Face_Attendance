@@ -37,7 +37,7 @@ def markAttendance(name):
         if name not in nameList:
             now = datetime.now()
             dtString = now.strftime('%H:%M:%S')
-            f.writelines(f'{name},{dtString}')
+            f.writelines(f'\n{name},{dtString}')
 
 encodeListKnown = findEncodings(images)
 print('Encoding Complete')
@@ -54,7 +54,7 @@ while True:
     encodesCurFrame = face_recognition.face_encodings(imgS, facesCurFrame)
 
     for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
-            matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
+            matches = face_recognition.compare_faces(encodeListKnown, encodeFace, tolerance=0.50)
             faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
             matchIndex = np.argmin(faceDis)
 
